@@ -42,11 +42,14 @@ def accountdetails(request):
 	if request.method == 'POST':
 		form = AddDeviceForm(request.POST)
 		newform = AddDeviceForm()
-		username = request.session["username"]
 		if form.is_valid():
+			username = request.POST.get('username')
+			user = User.objects.get(username=username)
 			d = form.cleaned_data['deviceid']
-			dev = Device.objects.get(deviceid=dev)
-			dev.username = username
+			dev = Device.objects.get(deviceid=d)
+			dev.deviceid = d
+			dev.devicepsw = form.cleaned_data['deviceid']
+			dev.username = user
 			dev.save()
 		devices = Device.objects.filter(username=username)
 		context = { 'username': username, 'devices': devices, 'form': newform }

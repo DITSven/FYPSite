@@ -60,17 +60,17 @@ class AddDeviceForm(forms.ModelForm):
 	class Meta:
 		model = Device
 		fields = ('deviceid', 'devicepsw')
+				
+	def clean(self):
+		data = self.cleaned_data
+		devid = data["deviceid"]
+		test1 = Device.objects.filter(deviceid=devid).exists()
+		if not test1:
+			raise forms.ValidationError("Device does not exist")
 		
-		def clean(self):
-			data = self.cleaned_data
-			devid = data["deviceid"]
-			test1 = Device.objects.filter(deviceid=devid).exists()
-			if not test1:
-				raise forms.ValidationError("Device does not exist")
-			
-			password = data["devicepsw"]
-			test2 = Device.objects.filter(deviceid=devid).filter(devicepsw=password).exists()
-			if not test2:
-				raise forms.ValidationError("Incorrect password")
-			
-			return data
+		password = data["devicepsw"]
+		test2 = Device.objects.filter(deviceid=devid).filter(devicepsw=password).exists()
+		if not test2:
+			raise forms.ValidationError("Incorrect password")
+		
+		return data

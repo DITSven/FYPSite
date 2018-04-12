@@ -28,7 +28,7 @@ class Device(models.Model):
 	"""
 	deviceid = models.CharField(primary_key=True, max_length=36)
 	devicepsw = models.CharField(max_length=36)
-	username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	username = models.ForeignKey(User, db_column='username', on_delete=models.SET_NULL, null=True)
 	
 	def __str__(self):
 		"""
