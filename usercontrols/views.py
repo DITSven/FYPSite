@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AddDeviceForm
 from .models import User, Device
+import json
 
 # Create your views here.
 def index(request):
@@ -38,10 +39,24 @@ def register(request):
 
 @login_required
 def accountdetails(request):
-	username = request.session["username"]
-	devices = Device.objects.filter(user=username)
-	context = { 'username': username, 'devices': devices }
-	return render (request, 'accountdetails.html', context)
+	if request.method == 'POST':
+		form = AddDeviceForm(request.POST)
+		newform = AddDeviceForm()
+		username = request.session["username"]
+		if form.is_valid():
+			d = form.cleaned_data['deviceid']
+			dev = Device.objects.get(deviceid=dev)
+			dev.username = username
+			dev.save()
+		devices = Device.objects.filter(username=username)
+		context = { 'username': username, 'devices': devices, 'form': newform }
+		return render (request, 'accountdetails.html', context)
+	else:
+		form = AddDeviceForm()
+		username = request.session["username"]
+		devices = Device.objects.filter(username=username)
+		context = { 'username': username, 'devices': devices, 'form': form }
+		return render (request, 'accountdetails.html', context)
 
 def loginfail(request):
 	return render (request, 'loginfail.html')

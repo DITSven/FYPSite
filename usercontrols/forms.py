@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Device
 
 class RegisterForm(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput())
@@ -42,13 +42,35 @@ class LoginForm(forms.ModelForm):
 		if password != confirm_password:
 			raise forms.ValidationError("passwords do not match")
 		
-		test1 = User.objects.filter(password=password).exists()
-		if not test1:
-			raise forms.ValidationError("incorrect password")
-		
 		username = data["username"]
 		test2 = User.objects.filter(username=username).exists()
 		if not test2:
 			raise forms.ValidationError("username does not exist")
+			
+		test1 = User.objects.filter(username=username).filter(password=password).exists()
+		if not test1:
+			raise forms.ValidationError("incorrect password")
+		
+		
 		
 		return data
+		
+class AddDeviceForm(forms.ModelForm):
+	
+	class Meta:
+		model = Device
+		fields = ('deviceid', 'devicepsw')
+		
+		def clean(self):
+			data = self.cleaned_data
+			devid = data["deviceid"]
+			test1 = Device.objects.filter(deviceid=devid).exists()
+			if not test1:
+				raise forms.ValidationError("Device does not exist")
+			
+			password = data["devicepsw"]
+			test2 = Device.objects.filter(deviceid=devid).filter(devicepsw=password).exists()
+			if not test2:
+				raise forms.ValidationError("Incorrect password")
+			
+			return data

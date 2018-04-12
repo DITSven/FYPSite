@@ -10,15 +10,6 @@ class User(models.Model):
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=36)
 	
-	"""
-	#not working, cannot access .filter
-	#def display_devices(self):
-		
-		Displays devices linked to user account
-		
-		#return ', '.join([Device.deviceid.filter(user__exact=self.username)])
-	"""
-	
 	def get_absolute_url(self):
 		"""
 		URL to individual user details
@@ -37,7 +28,7 @@ class Device(models.Model):
 	"""
 	deviceid = models.CharField(primary_key=True, max_length=36)
 	devicepsw = models.CharField(max_length=36)
-	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	username = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 	
 	def __str__(self):
 		"""
