@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% for device in devices %}
+	<div>{{device.deviceid}}</div>
+	{% endfor %}
+{% endif %}
+
+{% endblock %}

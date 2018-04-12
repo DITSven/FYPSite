@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="http://www.w3.org/StyleSheets/Core/Chocolate" type="text/css">
+	{% block title %}<title>Final Year Project Eoin Mulvey DT211C</title>{% endblock %}
+	<style>
+		button {padding: 15px 32px; text-align: center;}
+		label {display: inline-block; width: 175px; text-align: right;}
+		input {width: 300px}
+	</style>
+</head>
+<body>
+	<a href="{% url 'index' %}"><h1 style="text-align:center;">User Controls for IoT Devices</h1></a>
+  {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+</body>
+</html>

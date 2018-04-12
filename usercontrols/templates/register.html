@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div>Please enter your details below to create a user account:</div>
+<form method="POST">{% csrf_token %}
+{{form.as_p}}
+</br>
+<button type="submit"> Create Account </button>
+</form>
+{% endblock %}

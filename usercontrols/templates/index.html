@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<table style="width: 100%">
+	<tr>
+		<td><a href="{% url 'login' %}"><h2 style="text-align: left">Account Login</h2></a></td>
+		<td><a href="{% url 'register' %}"><h2 style="text-align: right">Create Account</h2></a></td>
+	</tr>
+</table>
+
+
+{% endblock %}
