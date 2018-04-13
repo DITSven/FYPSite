@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+	
+	<h3>{{deviceid}}</h3>
+
+<form method="POST">{% csrf_token %}
+<input type="hidden" name="deviceid" value={{deviceid}}>
+{{form.as_p}}</br>
+<input type="color" name="colour" value="red"></br>
+</br>
+<button type="submit">Submit</button>
+</form>
+</br>
+    
+{% endif %}
+
+{% endblock %}

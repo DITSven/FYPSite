@@ -13,7 +13,7 @@
 </form>
 </br>
     {% for device in devices %}
-	<div>{{device.deviceid}}</div>
+	<a href="device/{{device.deviceid}}"><div>{{device.deviceid}}</div></a>
 	
 	{% endfor %}
 {% endif %}

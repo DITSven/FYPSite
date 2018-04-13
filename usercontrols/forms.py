@@ -74,3 +74,15 @@ class AddDeviceForm(forms.ModelForm):
 			raise forms.ValidationError("Incorrect password")
 		
 		return data
+
+class DeviceInstructionForm(forms.ModelForm):
+	message=forms.CharField(widget=forms.TextInput)
+	#colour=forms.CharField(widget=ColorFieldWidget)
+	class Meta:
+		model = Device
+		fields = ()
+	
+	def clean(self):
+		data = self.cleaned_data
+		message = data["message"]
+		return data
